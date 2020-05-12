@@ -23,7 +23,18 @@ impl Book {
     /// # Example
     /// 
     /// ```
-    /// ruby_book.finish();
+    ///  use library_catalogue::book::Book;
+    ///  use library_catalogue::book::isbn::ISBN;
+    ///  use library_catalogue::book::read::Read;
+    ///  
+    ///  let mut rust_book = Book {
+    ///    title: String::from("The Rust Programming Language"),
+    ///    isbn: ISBN::V10(978, 1, 59327, 828, 1),
+    ///    pages: 519,
+    ///    read: Read::Started
+    ///  };
+    ///  
+    /// rust_book.finish();
     /// ```
     pub fn finish(&mut self) {
         self.read = Read::Finished;
