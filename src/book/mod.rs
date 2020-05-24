@@ -46,9 +46,8 @@ impl Book {
     /// - title
     /// - pages
     /// - isbn
-    pub fn summary(&self) {
-        println!("The book `{}` is a {} pages long read and is catalogued under the ISBN {}", self.title, self.pages, self.isbn );
-        self.isbn.print_qr_code();
+    pub fn summary(&self) -> String {
+        format!("The book `{}` is a {} pages long read and is catalogued under the ISBN {}\n{}", self.title, self.pages, self.isbn, self.isbn.print_qr_code())
     }
 
 }

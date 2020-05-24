@@ -1,4 +1,5 @@
 extern crate library_catalogue;
+use std::io::{Error, ErrorKind};
 
 use library_catalogue::book::{Book};
 use library_catalogue::book::isbn::{ISBN};
@@ -35,11 +36,17 @@ fn main() {
     programming_shelf.put_book(javascript_book);
     programming_shelf.put_book(ruby_book);
 
-    list_shelf_contents(Some(&programming_shelf));
+    match list_shelf_contents(Some(&programming_shelf)) {
+        Ok(info) => println!("{}", info),
+        Err(e)   => println!("ERROR: {:?}", e)
+    }
 
     let empty_shelf = None;
 
-    list_shelf_contents(empty_shelf);
+    match list_shelf_contents(empty_shelf) {
+        Ok(info) => println!("{}", info),
+        Err(e)   => println!("ERROR: {:?}", e)
+    }
     
 
 }
@@ -66,22 +73,25 @@ fn book_factory(title: String, isbn: ISBN, pages: u32) -> Book {
 /// Shows what's on the shelf
 /// 
 /// Names the shelf and then all the books on it
-fn list_shelf_contents(shelf: Option<&Shelf>) {
+fn list_shelf_contents(shelf: Option<&Shelf>) -> Result<String, Error> {
 
     match shelf {
         None => {
-            println!("Seems that the shelf is not there (yet?)");
+            return Err(Error::new(ErrorKind::Other, "Seems that the shelf is not there (yet?)"));
         },
         Some(shelf) => {
-            println!("On the `{}` shelf there are following volumes:", shelf.name);
+            let mut contents_info = format!("On the `{}` shelf there are following volumes:", shelf.name);
 
             for book in shelf.books.iter() {
-                book.summary();
+                contents_info = contents_info + &book.summary();
                 match book.read {
-                    Read::Finished => println!("+ And I have finsihed that one!"),
+                    Read::Finished => {
+                        contents_info = contents_info + &format!("+ And I have finsihed that one!")
+                    },
                     _ => {}
                 }
             }
+            Ok(contents_info)
         }
     }
 }

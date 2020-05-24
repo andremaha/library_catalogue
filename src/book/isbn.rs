@@ -37,18 +37,18 @@ impl ISBN {
     }
 
     /// Prints a QR code for the current ISBN
-    pub fn print_qr_code(&self) {
+    pub fn print_qr_code(&self) -> String {
         
 
         match self {
             ISBN::V10(a, b, c, d, e) => {
 
-                println!("{}", ISBN::convert_to_lines(vec![a, b, c, d, e]));
+                format!("{}", ISBN::convert_to_lines(vec![a, b, c, d, e]))
                 
             }, 
             ISBN::V13(a, b, c, d, e) => {
                 
-                println!("{}", ISBN::convert_to_lines(vec![a, b, c, d, e]));
+                format!("{}", ISBN::convert_to_lines(vec![a, b, c, d, e]))
 
             }
         }
