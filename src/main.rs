@@ -1,10 +1,10 @@
 extern crate library_catalogue;
 use std::io::{Error, ErrorKind};
 
-use library_catalogue::book::{Book};
-use library_catalogue::book::isbn::{ISBN};
-use library_catalogue::book::read::{Read};
-use library_catalogue::shelf::{Shelf};
+use library_catalogue::Book;
+use library_catalogue::ISBN;
+use library_catalogue::Read;
+use library_catalogue::Shelf;
 
 fn main() {
 
